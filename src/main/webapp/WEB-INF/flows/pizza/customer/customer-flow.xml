@@ -6,11 +6,11 @@
 
   <var name="customer" class="com.pesahlavan.pizza.domain.Customer"/>
 
-  <view-state id="welcome"> <!--<co id="welcome_view_state"/>--> 
+  <view-state id="welcome">
     <transition on="phoneEntered" to="lookupCustomer"/>
   </view-state>
   
-  <action-state id="lookupCustomer"><!--<co id="lookup_customer_action_state"/>--> 
+  <action-state id="lookupCustomer">
     <evaluate result="customer" expression=
         "pizzaFlowActions.lookupCustomer(requestParameters.phoneNumber)" />
     <transition to="registrationForm" on-exception=
@@ -18,7 +18,7 @@
     <transition to="customerReady" />
   </action-state>
   
-  <view-state id="registrationForm" model="customer"><!--<co id="registration_view_state"/>--> 
+  <view-state id="registrationForm" model="customer">
     <on-entry>
       <evaluate expression=
           "customer.phoneNumber = requestParameters.phoneNumber" />
@@ -26,17 +26,17 @@
     <transition on="submit" to="checkDeliveryArea" />
   </view-state>
     
-  <decision-state id="checkDeliveryArea"><!--<co id="check_delivery_area_decision_state"/>-->
+  <decision-state id="checkDeliveryArea">
     <if test="pizzaFlowActions.checkDeliveryArea(customer.zipCode)" 
         then="addCustomer" 
         else="deliveryWarning"/>
   </decision-state>
   
-  <view-state id="deliveryWarning"><!--<co id="delivery_warning_view_state"/>-->
+  <view-state id="deliveryWarning">
     <transition on="accept" to="addCustomer" />
   </view-state>
   
-  <action-state id="addCustomer"><!--<co id="add_customer_action_state"/>-->
+  <action-state id="addCustomer">
     <evaluate expression="pizzaFlowActions.addCustomer(customer)" />
     <transition to="customerReady" />    
   </action-state>
